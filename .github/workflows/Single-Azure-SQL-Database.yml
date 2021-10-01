@@ -1,0 +1,61 @@
+name: Update Azure SQL database
+
+#Sets the trigger to update when update is pushed to main branch
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+
+  # Job to build and publish the dacpac
+  build:
+    # Easier to use Github-hosted runner if updating in GitHub
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2.3.4
+      # Find msbuild
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.3
+      # create dacpac using MSBUILD
+      - name: Build Database project
+        run: |
+          msbuild.exe AzureSQLDB.sqlproj /p:Configuration=Release
+      # Publish artifact
+      - uses: actions/upload-artifact@v2.2.4
+        with:
+          name: AzureSQLDB
+          path: ${{ github.workspace }}/bin/Release/ 
+
+  # Deploy dacpac job
+  DeployAzureSQLDB:
+    # Set the dependency for the build job
+    needs: build
+    # Easier to use Github-hosted runner if updating in GitHub
+    runs-on: windows-latest
+
+    # Steps to deploy the updates to Azure SQL Database
+    # To keep this example simple, the Firewall settings in the logical SQL Server allows access from Azure services and resources
+    # An alternative is to use the Azure Login GitHub Action https://github.com/marketplace/actions/azure-login
+    steps:
+      - name: download artifact containing dacpac
+        # Dowloads Data artifact to dacpac folder
+        uses: actions/download-artifact@v2.0.10
+        with:
+          name: AzureSQLDB
+      # Installs dacpac
+      # For this to work you MUST have two secrets specified, defaults in my repo are blank
+      # One called AZURESQLDB_SERVER which contains your logical SQL Server name
+      # Another called AZURESQLDB_CONNECTION_STRING which contains connection string to your Azure SQL Database
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1
+        with:
+          # The logical SQL Server name
+          server-name: '${{ secrets.AZURESQLDB_SERVER }}'
+          # The connection string, including authentication information, for the Azure SQL Database.
+          connection-string: '${{ secrets.AZURESQLDB_CONNECTION_STRING }}'
+          # Name of the dacpac file in the artifact
+          dacpac-package: 'AzureSQLDB.dacpac'

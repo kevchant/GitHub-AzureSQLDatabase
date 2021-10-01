@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "h2U9gRP5IDlTfJx8prc2XIZBnu9k9qodU8e7UFT0aPy9VIafDn1eOzZQk1DpYtWxzzUgIPpVA3obU6HNcLLS7A==",
+  "success": true,
+  "projectFilePath": "c:\\repos\\Create dacpac from ADS test\\Create dacpac from ADS test.sqlproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kchan\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "C:\\Users\\kchan\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net46\\1.0.0\\microsoft.netframework.referenceassemblies.net46.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

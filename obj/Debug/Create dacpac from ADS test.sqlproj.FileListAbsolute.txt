@@ -1,0 +1,10 @@
+c:\repos\Create dacpac from ADS test\bin\Debug\Create dacpac from ADS test.dacpac
+c:\repos\Create dacpac from ADS test\bin\Debug\Create dacpac from ADS test.dll
+c:\repos\Create dacpac from ADS test\bin\Debug\Create dacpac from ADS test.pdb
+c:\repos\Create dacpac from ADS test\obj\Debug\Create dacpac from ADS test.sqlprojAssemblyReference.cache
+c:\repos\Create dacpac from ADS test\obj\Debug\Model.xml
+c:\repos\Create dacpac from ADS test\obj\Debug\refactor.xml
+c:\repos\Create dacpac from ADS test\obj\Debug\postdeploy.sql
+c:\repos\Create dacpac from ADS test\obj\Debug\predeploy.sql
+c:\repos\Create dacpac from ADS test\obj\Debug\Create dacpac from ADS test.dll
+c:\repos\Create dacpac from ADS test\obj\Debug\Create dacpac from ADS test.pdb
