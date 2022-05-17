@@ -8,7 +8,7 @@ In order to use it with GitHub Actions in your own account you can either import
 
 In order for the workflow to run the firewall settings for the logical SQL Server MUST allow Azure services and resources to access the server. Alternatively, add the Azure Login GitHub Action to this workflow https://github.com/marketplace/actions/azure-login.
 
-In addition, you MUST have two secrets specified, defaults in my repo are blank:
+In addition, you MUST have three secrets specified, any defaults in my repo are blank:
 
 - AZURE_CREDENTIALS - Required to create a temporary firewall rule for your agent, follow link to [create the credential](https://bit.ly/3Mn5a53). 
 - AZURESQLDB_SERVER, which contains your logical SQL Server name
