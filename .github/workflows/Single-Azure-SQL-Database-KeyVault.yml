@@ -1,10 +1,10 @@
 name: Update Azure SQL database
 
 #Sets the trigger to update when update is pushed to main branch
-# on:
-#   push:
-#     branches: 
-#       - main
+#on:
+#  push:
+#    branches: 
+#      - main
 
 jobs:
 
