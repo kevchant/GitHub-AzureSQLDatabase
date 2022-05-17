@@ -10,6 +10,7 @@ In order for the workflow to run the firewall settings for the logical SQL Serve
 
 In addition, you MUST have two secrets specified, defaults in my repo are blank:
 
+- AZURE_CREDENTIALS - Required to create a temporary firewall rule for your agent, follow link to [create the credential](https://bit.ly/3Mn5a53). 
 - AZURESQLDB_SERVER, which contains your logical SQL Server name
 - AZURESQLDB_CONNECTION_STRING, which contains connection string to your Azure SQL Database
 
