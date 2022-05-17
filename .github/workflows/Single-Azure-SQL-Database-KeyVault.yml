@@ -1,0 +1,79 @@
+# Template that shows how to use a workflow with Azure KeyVault
+# You will have to add a secret called AZURE_KEYVAULT for this to work
+# More information can be found at https://bit.ly/3Mn5a53
+
+name: Update Azure SQL database
+
+#Sets the trigger to update when update is pushed to main branch
+# You WILL need to uncomment this to automatically run
+# on:
+#   push:
+#     branches: 
+#       - main
+
+jobs:
+
+  # Job to build and publish the dacpac
+  build:
+    # Easier to use Github-hosted runner if updating in GitHub
+    # windows-2019 image works better at the moment
+    runs-on: windows-2019
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2.4.2
+      # Find msbuild
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      # create dacpac using MSBUILD
+      - name: Build Database project
+        run: |
+          msbuild.exe AzureSQLDB.sqlproj /p:Configuration=Release
+      # Publish artifact
+      - uses: actions/upload-artifact@v3.0.0
+        with:
+          name: AzureSQLDB
+          path: ${{ github.workspace }}/bin/Release/ 
+
+  # Deploy dacpac job
+  DeployAzureSQLDB:
+    # Set the dependency for the build job
+    needs: build
+    # Easier to use Github-hosted runner if updating in GitHub
+    runs-on: windows-latest
+
+    # Steps to deploy the updates to Azure SQL Database
+    # To keep this example simple, the Firewall settings in the logical SQL Server allows access from Azure services and resources
+    # An alternative is to use the Azure Login GitHub Action https://github.com/marketplace/actions/azure-login
+    steps:
+      - name: download artifact containing dacpac
+        # Dowloads Data artifact to dacpac folder
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: AzureSQLDB
+          
+      # Login using Azure credentials 
+      # Required to add a temporary firewall rule for the runner
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+ 
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: '${{ secrets.AZURE_KEYVAULT }}'
+          secrets: 'AzureSQLServer, AzureSQLDB-Connection-String'
+        id: myKeyVaultSecrets 
+ 
+      # Installs dacpac
+      # For this to work you have a secret specified, default in my repo are blank
+      # Another called AZURESQLDB_CONNECTION_STRING which contains connection string to your Azure SQL Database
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1.2
+        with:
+          # The logical SQL Server name from KeyVault
+          server-name: '${{ steps.myKeyVaultSecrets.outputs.AzureSQLServer }}'
+          # The connection string, including authentication information, for the Azure SQL Database.
+          connection-string: '${{ steps.myKeyVaultSecrets.outputs.AzureSQLDB-Connection-String }}'
+          # Name of the dacpac file in the artifact
+          dacpac-package: 'AzureSQLDB.dacpac'
