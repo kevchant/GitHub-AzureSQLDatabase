@@ -11,7 +11,8 @@ jobs:
   # Job to build and publish the dacpac
   build:
     # Easier to use Github-hosted runner if updating in GitHub
-    runs-on: windows-latest
+    # windows-2019 image works better for creating dacpacs at the moment
+    runs-on: windows-2019
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -19,13 +20,13 @@ jobs:
       - uses: actions/checkout@v2.3.4
       # Find msbuild
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.3
+        uses: microsoft/setup-msbuild@v1.1
       # create dacpac using MSBUILD
       - name: Build Database project
         run: |
           msbuild.exe AzureSQLDB.sqlproj /p:Configuration=Release
       # Publish artifact
-      - uses: actions/upload-artifact@v2.2.4
+      - uses: actions/upload-artifact@v3.0.0
         with:
           name: AzureSQLDB
           path: ${{ github.workspace }}/bin/Release/ 
@@ -43,15 +44,22 @@ jobs:
     steps:
       - name: download artifact containing dacpac
         # Dowloads Data artifact to dacpac folder
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v3.0.0
         with:
           name: AzureSQLDB
+          
+      # Login using Azure credentials 
+      # Required to add a temporary firewall rule for the runner
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}         
+      
       # Installs dacpac
       # For this to work you MUST have two secrets specified, defaults in my repo are blank
       # One called AZURESQLDB_SERVER which contains your logical SQL Server name
       # Another called AZURESQLDB_CONNECTION_STRING which contains connection string to your Azure SQL Database
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1
+        uses: Azure/sql-action@v1.2
         with:
           # The logical SQL Server name
           server-name: '${{ secrets.AZURESQLDB_SERVER }}'
