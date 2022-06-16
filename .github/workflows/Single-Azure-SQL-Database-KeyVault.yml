@@ -69,7 +69,7 @@ jobs:
       # For this to work you have a secret specified, default in my repo are blank
       # Another called AZURESQLDB_CONNECTION_STRING which contains connection string to your Azure SQL Database
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1.2
+        uses: Azure/sql-action@v1.3
         with:
           # The logical SQL Server name from KeyVault
           server-name: '${{ steps.myKeyVaultSecrets.outputs.AzureSQLServer }}'
