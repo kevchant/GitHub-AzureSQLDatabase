@@ -59,7 +59,7 @@ jobs:
       # One called AZURESQLDB_SERVER which contains your logical SQL Server name
       # Another called AZURESQLDB_CONNECTION_STRING which contains connection string to your Azure SQL Database
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1.2
+        uses: Azure/sql-action@v1.3
         with:
           # The logical SQL Server name
           server-name: '${{ secrets.AZURESQLDB_SERVER }}'
