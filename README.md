@@ -2,6 +2,8 @@
 
 Example of a SQL Server Database Project that deploys to an Azure SQL Database using GitHub Actions. Based on a blog post I wrote called 'Deploying to Azure SQL Database using GitHub Actions' (https://bit.ly/31PUTMV).
 
+A brief overview is below. However, there is also a wiki for this project (https://github.com/kevchant/GitHub-AzureSQLDatabase/wiki).
+
 It uses a YAML pipeline, which is also known as a workflow in GitHub. You can find this file in the /.github/workflows folder of the repository.
 
 In order to use it with GitHub Actions in your own account you can either import or fork this repository into another GitHub repository.
