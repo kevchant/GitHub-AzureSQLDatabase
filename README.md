@@ -4,13 +4,23 @@ Example of a SQL Server Database Project that deploys to an Azure SQL Database u
 
 A brief overview is below. However, there is also a wiki for this project (https://github.com/kevchant/GitHub-AzureSQLDatabase/wiki).
 
-It uses a YAML pipeline, which is also known as a workflow in GitHub. You can find this file in the /.github/workflows folder of the repository.
+It contains two different YAML pipelines, which is also known as workflows in GitHub. One for s standard install and one which connects to Azure KeyVault. You can find the files for the two different workflows you can use in the /.github/workflows folder of the repository.
 
 In order to use it with GitHub Actions in your own account you can either import or fork this repository into another GitHub repository.
 
-In order for the workflow to run the firewall settings for the logical SQL Server MUST allow Azure services and resources to access the server. Alternatively, add the Azure Login GitHub Action to this workflow https://github.com/marketplace/actions/azure-login.
+In order for the workflows to run the firewall settings for the logical SQL Server MUST allow Azure services and resources to access the server. Alternatively, add the Azure Login GitHub Action to this workflow https://github.com/marketplace/actions/azure-login.
 
-In addition, you MUST have three secrets specified, any defaults in my repo are blank:
+You MUST have three secrets specified if using the Single-Azure-SQL-Database-KeyVault workflow, any defaults in my repo are blank:
+
+- AZURE_CREDENTIALS - Required to create a temporary firewall rule for your agent, follow link to [create the credential](https://bit.ly/3Mn5a53). 
+- AZURE_KEYVAULT, URL for your your Azure KeyVault
+
+Plus, the below secrets must be in KeyVault:
+
+- AzureSQLServer - Name of your logical SQL Server. 
+- AzureSQLDB-Connection-String - Connection string to your Azure SQL Database.
+
+If using the Single-Azure-SQL-Database workflow instead you MUST have three secrets specified , any defaults in my repo are blank:
 
 - AZURE_CREDENTIALS - Required to create a temporary firewall rule for your agent, follow link to [create the credential](https://bit.ly/3Mn5a53). 
 - AZURESQLDB_SERVER, which contains your logical SQL Server name
