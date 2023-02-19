@@ -26,7 +26,7 @@ jobs:
         run: |
           msbuild.exe AzureSQLDB.sqlproj /p:Configuration=Release
       # Publish artifact
-      - uses: actions/upload-artifact@v3.0.0
+      - uses: actions/upload-artifact@v3.1.2
         with:
           name: AzureSQLDB
           path: ${{ github.workspace }}/bin/Release/ 
