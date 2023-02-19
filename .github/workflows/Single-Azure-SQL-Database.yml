@@ -1,10 +1,10 @@
 name: Update Azure SQL database
 
-#Sets the trigger to update when update is pushed to main branch
+#Sets the trigger to update when update is pushed to a sql-action-v1-feature branch
 on:
   push:
     branches: 
-      - main
+      - sql-action-v1-feature
 
 jobs:
 

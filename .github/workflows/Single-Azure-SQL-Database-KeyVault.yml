@@ -4,12 +4,11 @@
 
 name: Update Azure SQL database
 
-#Sets the trigger to update when update is pushed to main branch
-# You WILL need to uncomment this to automatically run
-# on:
-#   push:
-#     branches: 
-#       - main
+#Sets the trigger to update when update is pushed to a keyvault-feature branch
+on:
+  push:
+    branches: 
+      - keyvault-feature
 
 jobs:
 
