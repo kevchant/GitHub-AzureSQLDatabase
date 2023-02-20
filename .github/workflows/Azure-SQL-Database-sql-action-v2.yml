@@ -16,7 +16,7 @@ jobs:
   BuildDacpac:
     # Easier to use Github-hosted runner if updating in GitHub
     # windows-2019 image works better at the moment
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
