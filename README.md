@@ -4,7 +4,7 @@ Example of a SQL Server Database Project that deploys to an Azure SQL Database u
 
 A brief overview is below. However, there is also a wiki for this project (https://github.com/kevchant/GitHub-AzureSQLDatabase/wiki).
 
-It contains two different YAML pipelines, which is also known as workflows in GitHub. One for s standard install and one which connects to Azure KeyVault. You can find the files for the two different workflows you can use in the /.github/workflows folder of the repository.
+It contains three different YAML pipelines, which is also known as workflows in GitHub. One for a standard install using sql-action v1, one uses sql-action v2 and another one connects to Azure KeyVault. You can find the files for the three different workflows you can use in the /.github/workflows folder of the repository.
 
 In order to use it with GitHub Actions in your own account you can either import or fork this repository into another GitHub repository.
 
