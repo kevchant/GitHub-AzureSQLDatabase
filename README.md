@@ -1,6 +1,6 @@
 # Database Project for Azure SQL Database
 
-Example of a SQL Server Database Project that deploys to an Azure SQL Database using GitHub Actions. Based on a blog post I wrote called '[Deploying to Azure SQL Database using GitHub Actions](https://bit.ly/31PUTMV)' .
+Example of a [SQL Server Database Project](https://learn.microsoft.com/en-us/sql/tools/sql-database-projects/sql-database-projects?view=sql-server-ver16&WT.mc_id=DP-MVP-5004032%3Fview%3Dsql-server-ver16) that deploys to an Azure SQL Database using GitHub Actions. Based on a blog post I wrote called '[Deploying to Azure SQL Database using GitHub Actions](https://bit.ly/31PUTMV)' .
 
 A brief overview is below. However, there is also a [wiki for this repository](https://github.com/kevchant/GitHub-AzureSQLDatabase/wiki). .
 
